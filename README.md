@@ -1,11 +1,11 @@
 # 4DRadarSLAM
 ## A 4D Imaging Radar SLAM System for Large-scale Environments based on Pose Graph Optimization
-***hdl_graph_slam*** is an open source ROS package for real-time 6DOF SLAM using a 4D Radar. It is based on 3D Graph SLAM with Uncertainty GICP scan matching-based odometry estimation and Intensity Scan Context loop detection. It also supports several graph constraints, such as GPS. We have tested this package with ***Oculli Eagle*** in outdoor structured (buildings), unstructured (trees and grasses) and semi-structured environments.
+***4dRadarSLAM*** is an open source ROS package for real-time 6DOF SLAM using a 4D Radar. It is based on 3D Graph SLAM with Uncertainty GICP scan matching-based odometry estimation and Intensity Scan Context loop detection. It also supports several graph constraints, such as GPS. We have tested this package with ***Oculli Eagle*** in outdoor structured (buildings), unstructured (trees and grasses) and semi-structured environments.
 
 ## 1. Dependency
 ### 1.1 **Ubuntu** and **ROS**
 Ubuntu 64-bit 16.04, 18.04 or 20.04.
-ROS Kinetic, Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Installation) and its additional ROS pacakge:
+ROS Kinetic, Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Installation):
 
 ### 1.2 ***4DRadarSLAM*** requires the following libraries:
 
@@ -15,6 +15,10 @@ ROS Kinetic, Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Insta
 - suitesparse
 
 ### 1.3 The following ROS packages are required:
+- geodesy
+- nmea_msgs
+- pcl_ros
+- [fast_gicp](https://github.com/SMRT-AIST/fast_gicp)
 ```
     sudo apt-get install ros-XXX-geodesy ros-XXX-pcl-ros ros-XXX-nmea-msgs ros-XXX-libg2o
 ```
