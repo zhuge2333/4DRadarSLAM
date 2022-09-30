@@ -40,16 +40,21 @@ The input point cloud is first downsampled by ***preprocessing_nodelet***, estim
 </div>
 
 ## 3. Parameter tuning guide
-.
+The mapping quality largely depends on the parameter setting. In particular, scan matching parameters have a big impact on the result. Tune the parameters accoding to the following instructions:
 
 ## 4. Run the package
-Download [Our recorded rosbag]() and then
+Download [our recorded rosbag]() and, then
 ```
 roslaunch radar_graph_slam radar_graph_slam.launch
 ```
 You'll see a point cloud like:
 <div align="center">
-    <img src="doc/fig_qualitative_map.png" width = 100% >
+    <img src="doc/fig_carpark_map.png" width = 80% >
+</div>
+You can choose the dataset to play at end of the launch file.
+In our paper, we did evaluation on five datasets, mapping results are presented below:
+<div align="center">
+    <img src="doc/fig_map_compare.png" width = 100% >
 </div>
 
 ## 5. Evaluate the results
