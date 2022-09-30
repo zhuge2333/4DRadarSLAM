@@ -42,6 +42,9 @@ The input point cloud is first downsampled by ***preprocessing_nodelet***, estim
 ## 3. Parameter tuning guide
 The mapping quality largely depends on the parameter setting. In particular, scan matching parameters have a big impact on the result. Tune the parameters accoding to the following instructions:
 
+point uncertainty params:
+
+
 ## 4. Run the package
 Download [our recorded rosbag]() and, then
 ```
@@ -61,7 +64,7 @@ In our paper, we did evaluation on five datasets, mapping results are presented 
 In our paper, we use [rpg_trajectory_evaluation](https://github.com/uzh-rpg/rpg_trajectory_evaluation.git), the performance indices used are RE (relative error) and ATE (absolute trajectory error).
 
 ## 6. Collect your own datasets
-You need to calibrate the transform between Radar and Lidar
+You need a 4D Imaging radar. Also, GPS/RTK-GPS are optional choices. If you need to compare Lidar SLAM between the algorithum, or use its trajectory as ground truth, calibrating the transform between Radar and Lidar is a precondition.
 
 ## 7. Acknowlegement
 4DRadarSLAM is based on hdl_graph_slam (Kenji Koide, Jun Miura, and Emanuele Menegatti, A Portable 3D LIDAR-based System for Long-term and Wide-area People Behavior Measurement, Advanced Robotic Systems, 2019).
