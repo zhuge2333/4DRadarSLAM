@@ -36,7 +36,7 @@ ROS Kinetic, Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Insta
 The input point cloud is first downsampled by ***preprocessing_nodelet***, estimate its ego velocity and remove dynamic objects, and then passed to the next nodelets. While scan_matching_odometry_nodelet estimates the sensor pose by iteratively applying a scan matching between consecutive frames (i.e., odometry estimation). The estimated odometry are sent to ***radar_graph_slam***. To compensate the accumulated error of the scan matching, it performs loop detection and optimizes a pose graph which takes various constraints into account.
 
 <div align="center">
-    <img src="doc/fig_flowchart_4dradarslam.png" width = 60% >
+    <img src="doc/fig_flowchart_4dradarslam.png" width = 70% >
 </div>
 
 ## 3. Parameter tuning guide
@@ -49,7 +49,7 @@ roslaunch radar_graph_slam radar_graph_slam.launch
 ```
 You'll see a point cloud like:
 <div align="center">
-    <img src="doc/fig_qualitative_map.png" width = 60% >
+    <img src="doc/fig_qualitative_map.png" width = 100% >
 </div>
 
 ## 5. Evaluate the results
