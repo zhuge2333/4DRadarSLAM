@@ -42,8 +42,27 @@ The input point cloud is first downsampled by ***preprocessing_nodelet***, estim
 ## 3. Parameter tuning guide
 The mapping quality largely depends on the parameter setting. In particular, scan matching parameters have a big impact on the result. Tune the parameters accoding to the following instructions:
 
-point uncertainty params:
+### 3.1 Point cloud registration
+- ***registration_method***
+  This parameter allows to change the registration method to be used for odometry estimation and loop detection. Our code gives five options: ICP, NDT_OMP, FAST_GICP, FAST_UGICP, FAST_VGICP. 
 
+  FAST_UGICP is the implementation of our proposed Uncertainty GICP, it utilizes OpenMP for acceleration. Note that FAST_UGICP requires extra parameters.
+Point uncertainty parameters:
+- ***dist_u***
+- ***azimuth_u***
+- ***elevation_u***
+  *dist_u* means the uncertainty of a point’s range measurement at 100m range, *azimuth_u* and *elevation_u* denote the azimuth and elevation angle accuracy (in degree)
+
+### 3.2 Loop detection 
+- ***accum_distance_thresh***: Minimum distance beteen two edges of the loop
+- ***min_loop_interval_dist***: Minimum distance between a new loop edge and the last one
+- ***max_baro_difference***: Maximum altitude difference beteen two edges' odometry
+- ***max_yaw_difference***: Maximum yaw difference beteen two edges' odometry
+- ***odom_check_trans_thresh***: Translation threshold of Odometry Check
+- ***odom_check_rot_thresh***: Rotation threshold of Odometry Check
+
+### 3.3 Other parameters
+  All the configurable parameters are available in the launch file. Many are similar to the project ***hdl_graph_slam***.
 
 ## 4. Run the package
 Download [our recorded rosbag]() and, then
@@ -64,7 +83,7 @@ In our paper, we did evaluation on five datasets, mapping results are presented 
 In our paper, we use [rpg_trajectory_evaluation](https://github.com/uzh-rpg/rpg_trajectory_evaluation.git), the performance indices used are RE (relative error) and ATE (absolute trajectory error).
 
 ## 6. Collect your own datasets
-You need a 4D Imaging radar. Also, GPS/RTK-GPS are optional choices. If you need to compare Lidar SLAM between the algorithum, or use its trajectory as ground truth, calibrating the transform between Radar and Lidar is a precondition.
+You need a 4D Imaging radar. Also, GPS/RTK-GPS are optional. If you need to compare Lidar SLAM between the algorithum, or use its trajectory as ground truth, calibrating the transform between Radar and Lidar is a precondition.
 
 ## 7. Acknowlegement
 4DRadarSLAM is based on hdl_graph_slam (Kenji Koide, Jun Miura, and Emanuele Menegatti, A Portable 3D LIDAR-based System for Long-term and Wide-area People Behavior Measurement, Advanced Robotic Systems, 2019).
