@@ -43,9 +43,10 @@ The mapping quality largely depends on the parameter setting. In particular, sca
 
 ### 3.1 Point cloud registration
 - ***registration_method***
-  This parameter allows to change the registration method to be used for odometry estimation and loop detection. Our code gives five options: ICP, NDT_OMP, FAST_GICP, FAST_UGICP, FAST_VGICP. 
 
-  FAST_UGICP is the implementation of our proposed Uncertainty GICP, it utilizes OpenMP for acceleration. Note that FAST_UGICP requires extra parameters.
+This parameter allows to change the registration method to be used for odometry estimation and loop detection. Our code gives five options: ICP, NDT_OMP, FAST_GICP, FAST_UGICP, FAST_VGICP. 
+
+FAST_UGICP is the implementation of our proposed Uncertainty GICP, it utilizes OpenMP for acceleration. Note that FAST_UGICP requires extra parameters.
 Point uncertainty parameters:
 - ***dist_u***
 - ***azimuth_u***
