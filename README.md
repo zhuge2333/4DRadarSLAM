@@ -4,11 +4,10 @@
 
 ## 1. Dependency
 ### 1.1 **Ubuntu** and **ROS**
-Ubuntu 64-bit 16.04, 18.04 or 20.04.
-ROS Kinetic, Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Installation):
+Ubuntu 64-bit 18.04 or 20.04.
+ROS Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Installation):
 
 ### 1.2 ***4DRadarSLAM*** requires the following libraries:
-
 - Eigen3
 - OpenMP
 - PCL
@@ -52,7 +51,7 @@ Point uncertainty parameters:
 - ***azimuth_u***
 - ***elevation_u***
 
-*dist_u* means the uncertainty of a point’s range measurement at 100m range, *azimuth_u* and *elevation_u* denote the azimuth and elevation angle accuracy (in degree)
+*dist_u* means the uncertainty of a point’s range measurement at 100m range, *azimuth_u* and *elevation_u* denote the azimuth and elevation angle accuracy (degree)
 
 ### 3.2 Loop detection 
 - ***accum_distance_thresh***: Minimum distance beteen two edges of the loop
