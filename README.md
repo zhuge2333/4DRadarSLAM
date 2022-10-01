@@ -51,7 +51,8 @@ Point uncertainty parameters:
 - ***dist_u***
 - ***azimuth_u***
 - ***elevation_u***
-  *dist_u* means the uncertainty of a point’s range measurement at 100m range, *azimuth_u* and *elevation_u* denote the azimuth and elevation angle accuracy (in degree)
+
+*dist_u* means the uncertainty of a point’s range measurement at 100m range, *azimuth_u* and *elevation_u* denote the azimuth and elevation angle accuracy (in degree)
 
 ### 3.2 Loop detection 
 - ***accum_distance_thresh***: Minimum distance beteen two edges of the loop
@@ -60,6 +61,7 @@ Point uncertainty parameters:
 - ***max_yaw_difference***: Maximum yaw difference beteen two edges' odometry
 - ***odom_check_trans_thresh***: Translation threshold of Odometry Check
 - ***odom_check_rot_thresh***: Rotation threshold of Odometry Check
+- ***sc_dist_thresh***: Matching score threshold of Scan Context
 
 ### 3.3 Other parameters
   All the configurable parameters are available in the launch file. Many are similar to the project ***hdl_graph_slam***.
@@ -83,7 +85,7 @@ In our paper, we did evaluation on five datasets, mapping results are presented 
 In our paper, we use [rpg_trajectory_evaluation](https://github.com/uzh-rpg/rpg_trajectory_evaluation.git), the performance indices used are RE (relative error) and ATE (absolute trajectory error).
 
 ## 6. Collect your own datasets
-You need a 4D Imaging radar. Also, GPS/RTK-GPS are optional. If you need to compare Lidar SLAM between the algorithum, or use its trajectory as ground truth, calibrating the transform between Radar and Lidar is a precondition.
+You need a 4D Imaging radar (we use Oculii's Eagle). Also, a barometer (we use BMP388) and GPS/RTK-GPS (we use ZED-F9P) are optional. If you need to compare Lidar SLAM between the algorithum, or use its trajectory as ground truth, calibrating the transform between Radar and Lidar is a precondition.
 
 ## 7. Acknowlegement
 4DRadarSLAM is based on hdl_graph_slam (Kenji Koide, Jun Miura, and Emanuele Menegatti, A Portable 3D LIDAR-based System for Long-term and Wide-area People Behavior Measurement, Advanced Robotic Systems, 2019).
