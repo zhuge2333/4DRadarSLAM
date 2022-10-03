@@ -4,9 +4,9 @@
 
 4DRadarSLAM can operate in adverse wheather. We did a experiment in which sensors are covered by dense smoke. The Lidar SLAM (R2Live) failed, but our 4DRadarSLAM is not affected by it.
 
-<div align="center">
-    <img src="doc/mapping_smoke.png" width = 70% >
-</div>
+<p align='center'>
+    <img src="./doc/mapping_smoke.gif" alt="drawing" width="800"/>
+</p>
 
 ## 1. Dependency
 ### 1.1 **Ubuntu** and **ROS**
