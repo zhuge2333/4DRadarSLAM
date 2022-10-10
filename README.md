@@ -2,7 +2,7 @@
 ## A 4D Imaging Radar SLAM System for Large-scale Environments based on Pose Graph Optimization
 ***4DRadarSLAM*** is an open source ROS package for real-time 6DOF SLAM using a 4D Radar. It is based on 3D Graph SLAM with Uncertainty GICP scan matching-based odometry estimation and Intensity Scan Context loop detection. It also supports several graph constraints, such as GPS. We have tested this package with ***Oculli Eagle*** in outdoor structured (buildings), unstructured (trees and grasses) and semi-structured environments.
 
-4DRadarSLAM can operate in adverse wheather. We did a experiment in which sensors are covered by dense smoke. The Lidar SLAM (R2LIVE) failed, but our 4DRadarSLAM is not affected by it, thanks to the penetration of millimeter waves to small objects such as smoke and rain.
+4DRadarSLAM can operate in adverse wheather. We did a experiment in which sensors are covered by dense ***Smoke***. The Lidar SLAM (R2LIVE) failed, but our 4DRadarSLAM is not affected by it, thanks to the penetration of millimeter waves to small objects such as smoke and rain.
 
 <p align='center'>
     <img src="./doc/mapping_smoke.gif" alt="drawing" width="800"/>
