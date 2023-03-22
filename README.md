@@ -1,6 +1,6 @@
 # 4DRadarSLAM
 ## A 4D Imaging Radar SLAM System for Large-scale Environments based on Pose Graph Optimization
-***4DRadarSLAM*** is an open source ROS package for real-time 6DOF SLAM using a 4D Radar. It is based on 3D Graph SLAM with Uncertainty GICP scan matching-based odometry estimation and Intensity Scan Context loop detection. It also supports several graph constraints, such as GPS. We have tested this package with ***Oculli Eagle*** in outdoor structured (buildings), unstructured (trees and grasses) and semi-structured environments.
+***4DRadarSLAM*** is an open source ROS package for real-time 6DOF SLAM using a 4D Radar. It is based on 3D Graph SLAM with Adaptive Probability Distribution GICP scan matching-based odometry estimation and Intensity Scan Context loop detection. It also supports several graph constraints, such as GPS. We have tested this package with ***Oculli Eagle*** in outdoor structured (buildings), unstructured (trees and grasses) and semi-structured environments.
 
 4DRadarSLAM can operate in adverse wheather. We did a experiment in which sensors are covered by dense ***Smoke***. The Lidar SLAM (R2LIVE) failed, but our 4DRadarSLAM is not affected by it, thanks to the penetration of millimeter waves to small objects such as smoke and rain.
 
@@ -22,7 +22,7 @@ ROS Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Installation):
 - geodesy
 - nmea_msgs
 - pcl_ros
-- Our modified [fast_ugicp](https://github.com/zhuge2333/fast_ugicp), in which Uncertainty GICP algorithum module is added. The original is [fast_gicp](https://github.com/SMRT-AIST/fast_gicp)
+- Our modified [fast_apdgicp](https://github.com/zhuge2333/fast_apdgicp), in which Adaptive Probability Distribution GICP algorithum module is added. The original is [fast_gicp](https://github.com/SMRT-AIST/fast_gicp)
 ```
     sudo apt-get install ros-XXX-geodesy ros-XXX-pcl-ros ros-XXX-nmea-msgs ros-XXX-libg2o
 ```
@@ -50,9 +50,9 @@ The mapping quality largely depends on the parameter setting. In particular, sca
 ### 3.1 Point cloud registration
 - ***registration_method***
 
-This parameter allows to change the registration method to be used for odometry estimation and loop detection. Our code gives five options: ICP, NDT_OMP, FAST_GICP, FAST_UGICP, FAST_VGICP. 
+This parameter allows to change the registration method to be used for odometry estimation and loop detection. Our code gives five options: ICP, NDT_OMP, FAST_GICP, FAST_APDGICP, FAST_VGICP. 
 
-FAST_UGICP is the implementation of our proposed Uncertainty GICP, it utilizes OpenMP for acceleration. Note that FAST_UGICP requires extra parameters.
+FAST_APDGICP is the implementation of our proposed Adaptive Probability Distribution GICP, it utilizes OpenMP for acceleration. Note that FAST_APDGICP requires extra parameters.
 Point uncertainty parameters:
 - ***dist_u***
 - ***azimuth_u***
