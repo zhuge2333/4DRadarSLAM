@@ -94,4 +94,8 @@ In our paper, we use [rpg_trajectory_evaluation](https://github.com/uzh-rpg/rpg_
 You need a 4D Imaging radar (we use Oculii's Eagle). Also, a barometer (we use BMP388) and GPS/RTK-GPS (we use ZED-F9P) are optional. If you need to compare Lidar SLAM between the algorithum, or use its trajectory as ground truth, calibrating the transform between Radar and Lidar is a precondition.
 
 ## 7. Acknowlegement
-4DRadarSLAM is based on hdl_graph_slam (Kenji Koide, Jun Miura, and Emanuele Menegatti, A Portable 3D LIDAR-based System for Long-term and Wide-area People Behavior Measurement, Advanced Robotic Systems, 2019).
+1. 4DRadarSLAM is based on [koide3/hdl_graph_slam](https://github.com/koide3/hdl_graph_slam) 
+2. [irapkaist/scancontext](https://github.com/irapkaist/scancontext)
+3. [christopherdoer/reve Radar Ego-velocity Estimator](https://github.com/christopherdoer/reve)
+4. [NeBula-Autonomy/LAMP](https://github.com/NeBula-Autonomy/LAMP)
+5. [slambook-en](https://github.com/gaoxiang12/slambook-en) and [Dr. Gao Xiang (高翔)](https://github.com/gaoxiang12) for his SLAM tutorial.
