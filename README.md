@@ -99,4 +99,4 @@ You need a 4D Imaging radar (we use Oculii's Eagle). Also, a barometer (we use B
 3. [wh200720041/iscloam](https://github.com/wh200720041/iscloam) intensity scan context
 4. [christopherdoer/reve](https://github.com/christopherdoer/reve) radar ego-velocity estimator
 5. [NeBula-Autonomy/LAMP](https://github.com/NeBula-Autonomy/LAMP) odometry check for loop closure validation
-6. [slambook-en](https://github.com/gaoxiang12/slambook-en) and [Dr. Gao Xiang (高翔)](https://github.com/gaoxiang12) for his SLAM tutorial
+6. [slambook-en](https://github.com/gaoxiang12/slambook-en) and [Dr. Gao Xiang (高翔)](https://github.com/gaoxiang12). His SLAM tutorial and blogs are the starting point of our SLAM journey.
