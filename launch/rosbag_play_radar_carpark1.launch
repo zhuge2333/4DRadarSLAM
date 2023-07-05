@@ -1,0 +1,27 @@
+<!-- This launch file loads rosbags and makes an octomap file -->
+
+<launch>
+
+<!-- <param name="/use_sim_time" value="true"/> -->
+
+<!-- paths to the rosbag files -->
+<arg name="path" default="/home/zhuge/datasets/Radar/"/>
+
+<arg name = "file_0" default = "carpark_400/carpark1_2022-02-26.bag"/>
+<arg name = "file_1" default = "carpark_400/carpark1_2023-02-01.bag"/>
+<arg name = "file_2" default = "carpark_400/carpark8_normal_2023-01-14.bag"/>
+<arg name = "file_3" default = "carpark_400/carpark0_normal_2023-01-14.bag"/>
+<arg name = "file_4" default = "carpark_400/carpark0_hard_2023-01-14.bag"/>
+<arg name = "file_5" default = "carpark_400/carpark0_2023-01-27.bag"/>
+<arg name = "file_6" default = "carpark_400/carpark8_2023-01-27.bag"/>
+
+<!-- Plays the dataset. WARNING: changing 'rate' will cause interactions with the demo.  -->
+<!--  /radar_pcl /radar_trk -->
+<node pkg="rosbag" type="play" name="player"
+    args = "-s 0.5 --clock --rate=3 --duration=10000
+    $(arg path)$(arg file_0)
+    --topic /radar_enhanced_pcl /rgb_cam/image_raw/compressed /barometer/filtered /vectornav/imu
+    ">
+</node>
+
+</launch>

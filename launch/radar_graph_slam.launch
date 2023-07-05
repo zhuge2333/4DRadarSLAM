@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Parameters -->
+  <rosparam file="$(find radar_graph_slam)/config/params.yaml" command="load" />
+  <param name="use_sim_time" value="true"/>
+  
+  <!-- arguments -->
+  <arg name="nodelet_manager" default="radarslam_nodelet_manager" />
+  <arg name="enable_floor_detection" default="false" />
+  <arg name="enable_barometer" default="false" /> <!-- barometer altitude constraint, not used -->
+  <arg name="barometer_edge_type" default="1" /> <!-- not used -->
+  <arg name="enable_gps" default="false" />
+  <arg name="enable_dynamic_object_removal" default="false" />
+  <arg name="enable_frontend_ego_vel" default="false" />
+  <arg name="enable_preintegration" default="false" /> <!-- not used -->
+
+  <arg name="keyframe_delta_trans_front_end" default="0.5" />
+  <arg name="keyframe_delta_trans_back_end" default="2" /><!-- 1 2 -->
+  <arg name="keyframe_delta_angle" default="0.2612" /><!-- 10°: 0.1745 15°: 0.2612 -->
+
+  <arg name="enable_transform_thresholding" default="true" />
+  <arg name="enable_loop_closure" default="false" />
+  
+  <!-- ICP NDT_OMP FAST_GICP FAST_APDGICP FAST_VGICP   -->
+  <arg name="registration_method" default="FAST_APDGICP" />
+  <arg name="reg_resolution" default="1.0" />
+  
+  <arg name="dist_var" default="0.86" />
+  <arg name="azimuth_var" default="0.5" />
+  <arg name="elevation_var" default="1.0" /><!-- 1.0 -->
+
+  <!-- optional arguments -->
+  <arg name="enable_robot_odometry_init_guess" default="false" /> <!-- not used -->
+
+  <!-- transformation between lidar and base_link -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="lidar2base_publisher" args="0 0 0 0 0 0 base_link velodyne 10" /> -->
+  
+  <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)" args="manager" output="screen"/>
+
+  <!-- radar_preprocessing_nodelet -->
+  <node pkg="nodelet" type="nodelet" name="radar_preprocessing_nodelet" args="load radar_graph_slam/PreprocessingNodelet $(arg nodelet_manager)">
+    <!-- distance filter -->
+    <param name="use_distance_filter" value="true" />
+    <param name="distance_near_thresh" value="2" />
+    <param name="distance_far_thresh" value="100.0" />
+    <param name="z_low_thresh" value="-100.0" />
+    <param name="z_high_thresh" value="100.0" />
+    <!-- NONE, VOXELGRID(0.1), or APPROX_VOXELGRID -->
+    <param name="downsample_method" value="VOXELGRID" />
+    <param name="downsample_resolution" value="0.1" />
+    <!-- NONE, RADIUS 2(initial 0.5 2), STATISTICAL, or BILATERAL -->
+    <param name="outlier_removal_method" value="RADIUS" />
+    <param name="statistical_mean_k" value="30" />
+    <param name="statistical_stddev" value="1.2" />
+    <param name="radius_radius" value="0.5" />
+    <param name="radius_min_neighbors" value="1" />
+    <param name="bilateral_sigma_s" value="5" />
+    <param name="bilateral_sigma_r" value="0.03" />
+    <!-- Power Filterring -->
+    <param name="power_threshold" value="0.0" />
+    <!-- Ego Velocity Estimation -->
+    <param name="enable_dynamic_object_removal" value="$(arg enable_dynamic_object_removal)" />
+    <!-- ground truth publication -->
+    <param name="gt_file_location" value="/home/zhuge/datasets/Radar/gt_carpark1.txt" />
+  </node>
+
+
+  <!-- scan_matching_odometry_nodelet -->
+  <node pkg="nodelet" type="nodelet" name="scan_matching_odometry_nodelet" args="load radar_graph_slam/ScanMatchingOdometryNodelet $(arg nodelet_manager)">
+    <param name="keyframe_delta_trans" value="$(arg keyframe_delta_trans_front_end)" />
+    <param name="keyframe_delta_angle" value="$(arg keyframe_delta_angle)" /> 
+    <param name="keyframe_min_size" value="100" />
+    <param name="enable_robot_odometry_init_guess" value="$(arg enable_robot_odometry_init_guess)" />
+    <param name="enable_transform_thresholding" value="$(arg enable_transform_thresholding)" />
+    <param name="enable_imu_thresholding" value="false" /> <!-- bad effect, not used -->
+    <param name="max_acceptable_trans" value="1.0" />
+    <param name="max_acceptable_angle" value="3" /><!-- degree -->
+    <param name="max_diff_trans" value="0.3" />
+    <param name="max_diff_angle" value="0.8" />
+    <param name="max_egovel_cum" value="1" /><!-- 12m/s -->
+    <param name="downsample_method" value="NONE" />
+    <param name="downsample_resolution" value="0.1" />
+    <!-- ICP, GICP, NDT, GICP_OMP, NDT_OMP, FAST_GICP(recommended), or FAST_VGICP -->
+    <param name="registration_method" value="$(arg registration_method)" />
+    <param name="dist_var" value="$(arg dist_var)" /><!--  -->
+    <param name="azimuth_var" value="$(arg azimuth_var)" /><!--  -->
+    <param name="elevation_var" value="$(arg elevation_var)" /><!--  -->
+    <param name="reg_num_threads" value="0" />
+    <param name="reg_transformation_epsilon" value="0.1"/>
+    <param name="reg_maximum_iterations" value="64"/>
+    <param name="reg_max_correspondence_distance" value="2.0"/>
+    <param name="reg_max_optimizer_iterations" value="20"/>
+    <param name="reg_use_reciprocal_correspondences" value="false"/>
+    <param name="reg_correspondence_randomness" value="20"/>
+    <param name="reg_resolution" value="$(arg reg_resolution)" />
+    <param name="reg_nn_search_method" value="DIRECT7" />
+    <param name="use_ego_vel" value="$(arg enable_frontend_ego_vel)"/>
+    <param name="max_submap_frames" value="5"/>
+    <param name="enable_scan_to_map" value="false"/>
+    <!-- IMU --> <!-- bad effect, not used -->
+    <param name="enable_imu_fusion" value="false" />
+    <param name="imu_debug_out" value="true" />
+    <param name="imu_fusion_ratio" value="0.1" />
+  </node>
+
+
+  <!-- radar_graph_slam_nodelet -->
+  <node pkg="nodelet" type="nodelet" name="radar_graph_slam_nodelet" args="load radar_graph_slam/RadarGraphSlamNodelet $(arg nodelet_manager)" output="screen">
+    <!-- optimization params -->
+    <!-- typical solvers: gn_var, gn_fix6_3, gn_var_cholmod, lm_var, lm_fix6_3, lm_var_cholmod, ... -->
+    <param name="g2o_solver_type" value="lm_var_cholmod" />
+    <param name="g2o_solver_num_iterations" value="512" />
+    <!-- constraint switches -->
+    <param name="enable_barometer" value="$(arg enable_barometer)" /> <!-- not used -->
+    <param name="enable_gps" value="$(arg enable_gps)" />
+    <!-- keyframe registration params --> 
+    <param name="max_keyframes_per_update" value="30" />
+    <param name="keyframe_delta_trans" value="$(arg keyframe_delta_trans_back_end)" />
+    <param name="keyframe_delta_angle" value="$(arg keyframe_delta_angle)" />
+    <param name="keyframe_min_size" value="500" />
+    <!-- fix first node for optimization stability -->
+    <param name="fix_first_node" value="true"/>
+    <param name="fix_first_node_stddev" value="10 10 10 1 1 1"/>
+    <param name="fix_first_node_adaptive" value="true"/>
+    <!-- Scan Context Loop Closure params 15 25 15 2.5 -->
+    <param name="enable_loop_closure" value="$(arg enable_loop_closure)"/>
+    <param name="enable_pf" value="true"/> <!-- loop prefiltering -->
+    <param name="enable_odom_check" value="true"/>
+    <param name="distance_thresh" value="10.0" />
+    <param name="accum_distance_thresh" value="50.0" /><!-- Minimum distance beteen two edges of the loop -->
+    <param name="min_loop_interval_dist" value="10.0" /><!-- Minimum distance between a new loop edge and the last one -->
+    <param name="distance_from_last_edge_thresh" value="10" />
+    <param name="max_baro_difference" value="2.0" /><!-- Maximum altitude difference beteen two edges' odometry -->
+    <param name="max_yaw_difference" value="20" /><!-- Maximum yaw difference beteen two edges' odometry -->
+    
+    <param name="sc_dist_thresh" value="0.5" /><!-- Matching score threshold of Scan Context 0.4-0.6 will be good -->
+    <param name="sc_azimuth_range" value="56.5" />
+    <param name="historyKeyframeFitnessScore" value="6" />
+    <param name="odom_check_trans_thresh" value="0.3" />
+    <param name="odom_check_rot_thresh" value="0.05" />
+    <param name="pairwise_check_trans_thresh" value="1.5" />
+    <param name="pairwise_check_rot_thresh" value="0.2" />
+    <!-- scan matching params -->
+    <param name="registration_method" value="$(arg registration_method)" />
+    <param name="reg_num_threads" value="0" />
+    <param name="reg_transformation_epsilon" value="0.1"/>
+    <param name="reg_maximum_iterations" value="64"/>
+    <param name="reg_max_correspondence_distance" value="2.0"/>
+    <param name="reg_max_optimizer_iterations" value="20"/>
+    <param name="reg_use_reciprocal_correspondences" value="false"/>
+    <param name="reg_correspondence_randomness" value="20"/>
+    <param name="reg_resolution" value="$(arg reg_resolution)" />
+    <param name="reg_nn_search_method" value="DIRECT7" />
+    <!-- edge params -->
+    <!-- Barometer not used -->
+    <param name="barometer_edge_type" value="$(arg barometer_edge_type)" />
+    <param name="barometer_edge_robust_kernel" value="Huber" />
+    <param name="barometer_edge_robust_kernel_size" value="1.0" />
+    <param name="barometer_edge_stddev" value="0.47" /> <!-- 0.47 -->
+    <!-- GPS -->
+    <param name="gps_edge_robust_kernel" value="Huber" />
+    <param name="gps_edge_robust_kernel_size" value="1.0" />
+    <param name="gps_edge_stddev_xy" value="5.0" />
+    <param name="gps_edge_stddev_z" value="5.0" />
+    <param name="max_gps_edge_stddev_xy" value="1.5" />
+    <param name="max_gps_edge_stddev_z" value="3.0" />
+    <param name="gps_edge_intervals" value="15" />
+    <param name="dataset_name" value="loop2" />
+    <!-- Preintegration --> <!-- bad effect, not used -->
+    <param name="enable_preintegration" value="$(arg enable_preintegration)" />
+      <param name="use_egovel_preinteg_trans" value="false" /><!-- Ego Velocity Integration - Translation -->
+      <param name="preinteg_orient_stddev" value="1" />
+      <param name="preinteg_trans_stddev" value="5" />
+    <!-- scan matching -->
+    <!-- robust kernels: NONE, Cauchy, DCS, Fair, GemanMcClure, Huber, PseudoHuber, Saturated, Tukey, Welsch -->
+    <param name="odometry_edge_robust_kernel" value="NONE" />
+    <param name="odometry_edge_robust_kernel_size" value="1.0" />
+    <param name="loop_closure_edge_robust_kernel" value="Huber" />
+    <param name="loop_closure_edge_robust_kernel_size" value="1.0" />
+    <param name="use_const_inf_matrix" value="false" />
+    <param name="const_stddev_x" value="0.5" />
+    <param name="const_stddev_q" value="0.1" />
+    <param name="var_gain_a" value="20.0" />
+    <param name="min_stddev_x" value="0.1" />
+    <param name="max_stddev_x" value="5.0" />
+    <param name="min_stddev_q" value="0.05" />
+    <param name="max_stddev_q" value="0.2" />
+    <!-- update params -->
+    <param name="graph_update_interval" value="2.0" />
+    <param name="map_cloud_update_interval" value="6.0" />
+    <param name="map_cloud_resolution" value="0.05" />
+    <!-- marker params -->
+    <param name="show_sphere" value="false" />
+  </node>
+
+  <node pkg="rviz" type="rviz" name="rviz_slam" args="-d $(find radar_graph_slam)/rviz/radar_graph_slam.rviz" respawn="true"/>
+
+  <!--- Rosbag Play -->
+  <include file="$(find radar_graph_slam)/launch/rosbag_play_radar_carpark1.launch" />
+  <!-- <include file="$(find radar_graph_slam)/launch/rosbag_play_radar_carpark3.launch" /> -->
+  <!-- <include file="$(find radar_graph_slam)/launch/rosbag_play_radar_garden.launch" /> -->
+  <!-- <include file="$(find radar_graph_slam)/launch/rosbag_play_radar_nanyanglink.launch" /> -->
+  <!-- <include file="$(find radar_graph_slam)/launch/rosbag_play_radar_ntuloop1.launch" /> -->
+  <!-- <include file="$(find radar_graph_slam)/launch/rosbag_play_radar_ntuloop2.launch" /> -->
+  <!-- <include file="$(find radar_graph_slam)/launch/rosbag_play_radar_ntuloop3.launch" /> -->
+  <!-- <include file="$(find radar_graph_slam)/launch/rosbag_play_radar_smoke.launch" /> -->
+
+</launch>
