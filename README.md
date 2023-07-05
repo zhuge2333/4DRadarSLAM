@@ -38,7 +38,7 @@ ROS Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Installation):
 - *scan_matching_odometry_nodelet*
 - *radar_graph_slam_nodelet*
 
-The input point cloud is first downsampled by ***preprocessing_nodelet***, estimate its ego velocity and remove dynamic objects, and then passed to the next nodelets. While scan_matching_odometry_nodelet estimates the sensor pose by iteratively applying a scan matching between consecutive frames (i.e., odometry estimation). The estimated odometry are sent to ***radar_graph_slam***. To compensate the accumulated error of the scan matching, it performs loop detection and optimizes a pose graph which takes various constraints into account.
+The input point cloud is first downsampled by ***preprocessing_nodelet***; the radar pointcloud is transformed to Livox LiDAR frame; estimate its ego velocity and remove dynamic objects, and then passed to the next nodelets. While scan_matching_odometry_nodelet estimates the sensor pose by iteratively applying a scan matching between consecutive frames (i.e., odometry estimation). The estimated odometry are sent to ***radar_graph_slam***. To compensate the accumulated error of the scan matching, it performs loop detection and optimizes a pose graph which takes various constraints into account.
 
 <div align="center">
     <img src="doc/fig_flowchart_system.png" width = 100% >
@@ -54,11 +54,11 @@ This parameter allows to change the registration method to be used for odometry 
 
 FAST_APDGICP is the implementation of our proposed Adaptive Probability Distribution GICP, it utilizes OpenMP for acceleration. Note that FAST_APDGICP requires extra parameters.
 Point uncertainty parameters:
-- ***dist_u***
-- ***azimuth_u***
-- ***elevation_u***
+- ***dist_var***
+- ***azimuth_var***
+- ***elevation_var***
 
-*dist_u* means the uncertainty of a point’s range measurement at 100m range, *azimuth_u* and *elevation_u* denote the azimuth and elevation angle accuracy (degree)
+*dist_var* means the uncertainty of a point’s range measurement at 100m range, *azimuth_var* and *elevation_var* denote the azimuth and elevation angle accuracy (degree)
 
 ### 3.2 Loop detection 
 - ***accum_distance_thresh***: Minimum distance beteen two edges of the loop
