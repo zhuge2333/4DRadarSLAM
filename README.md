@@ -73,7 +73,7 @@ Point uncertainty parameters:
   All the configurable parameters are available in the launch file. Many are similar to the project ***hdl_graph_slam***.
 
 ## 4. Run the package
-Download [our recorded rosbag]() and, then
+Download [our recorded rosbag](https://drive.google.com/drive/folders/14jVa_dzmckVMDdfELmY32fJlKrZG1Afv?usp=sharing) and, then
 ```
 roslaunch radar_graph_slam radar_graph_slam.launch
 ```
