@@ -100,3 +100,16 @@ You need a 4D Imaging radar (we use Oculii's Eagle). Also, a barometer (we use B
 4. [christopherdoer/reve](https://github.com/christopherdoer/reve) radar ego-velocity estimator
 5. [NeBula-Autonomy/LAMP](https://github.com/NeBula-Autonomy/LAMP) odometry check for loop closure validation
 6. [slambook-en](https://github.com/gaoxiang12/slambook-en) and [Dr. Gao Xiang (高翔)](https://github.com/gaoxiang12). His SLAM tutorial and blogs are the starting point of our SLAM journey.
+## 8. Citation
+If you find this work is useful for your research, please consider citing:
+```
+@INPROCEEDINGS{ZhangZhuge2023ICRA,
+  author={Zhang, Jun and Zhuge, Huayang and Wu, Zhenyu and Peng, Guohao and Wen, Mingxing and Liu, Yiyao and Wang, Danwei},
+  booktitle={2023 IEEE International Conference on Robotics and Automation (ICRA)}, 
+  title={4DRadarSLAM: A 4D Imaging Radar SLAM System for Large-scale Environments based on Pose Graph Optimization}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={8333-8340},
+  doi={10.1109/ICRA48891.2023.10160670}}
+```
