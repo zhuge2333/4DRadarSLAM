@@ -23,6 +23,7 @@ ROS Melodic or Noetic. [ROS Installation](http://wiki.ros.org/ROS/Installation):
 - nmea_msgs
 - pcl_ros
 - Our modified [fast_apdgicp](https://github.com/zhuge2333/fast_apdgicp), in which Adaptive Probability Distribution GICP algorithum module is added. The original is [fast_gicp](https://github.com/SMRT-AIST/fast_gicp)
+- [barometer_bmp388](https://github.com/zhuge2333/barometer_bmp388.git)
 ```
     sudo apt-get install ros-XXX-geodesy ros-XXX-pcl-ros ros-XXX-nmea-msgs ros-XXX-libg2o
 ```
