@@ -8,6 +8,8 @@
     <img src="./doc/mapping_smoke.gif" alt="drawing" width="800"/>
 </p>
 
+[Paper (ResearchGate)](https://www.researchgate.net/publication/371309896_4DRadarSLAM_A_4D_Imaging_Radar_SLAM_System_for_Large-scale_Environments_based_on_Pose_Graph_Optimization), [Paper (IEEEXplore)](https://ieeexplore.ieee.org/document/10160670), [Video](https://www.youtube.com/watch?v=Qlvs7ywA5TI)
+
 ## 1. Dependency
 ### 1.1 **Ubuntu** and **ROS**
 Ubuntu 64-bit 18.04 or 20.04.
