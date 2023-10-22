@@ -78,7 +78,7 @@ Point uncertainty parameters:
   All the configurable parameters are available in the launch file. Many are similar to the project ***hdl_graph_slam***.
 
 ## 4. Run the package
-Download [our recorded rosbag](https://drive.google.com/drive/folders/14jVa_dzmckVMDdfELmY32fJlKrZG1Afv?usp=sharing) and, then
+Download [our recorded rosbag](https://drive.google.com/drive/folders/14jVa_dzmckVMDdfELmY32fJlKrZG1Afv?usp=sharing)  (**More datasets**: [NTU4DRadLM](https://github.com/junzhang2016/NTU4DRadLM)) and, then
 ```
 roslaunch radar_graph_slam radar_graph_slam.launch
 ```
@@ -91,6 +91,8 @@ In our paper, we did evaluation on five datasets, mapping results are presented 
 <div align="center">
     <img src="doc/fig_map_compare.png" width = 100% >
 </div>
+
+
 
 ## 5. Evaluate the results
 In our paper, we use [rpg_trajectory_evaluation](https://github.com/uzh-rpg/rpg_trajectory_evaluation.git), the performance indices used are RE (relative error) and ATE (absolute trajectory error).
@@ -118,4 +120,17 @@ If you find this work is useful for your research, please consider citing:
   number={},
   pages={8333-8340},
   doi={10.1109/ICRA48891.2023.10160670}}
+```
+
+
+```
+@INPROCEEDINGS{ZhangZhugeLiu2023ITSC,  
+author={Jun Zhang∗, Huayang Zhuge∗, Yiyao Liu∗, Guohao Peng, Zhenyu Wu, Haoyuan Zhang, Qiyang Lyu, Heshan Li, Chunyang Zhao, Dogan Kircali, Sanat Mharolkar, Xun Yang, Su Yi, Yuanzhe Wang+ and Danwei Wang},  
+booktitle={2023 IEEE 26th International Conference on Intelligent Transportation Systems (ITSC)},   
+title={NTU4DRadLM: 4D Radar-centric Multi-Modal Dataset for Localization and Mapping},  
+year={2023},  
+volume={},  
+number={},  
+pages={},  
+doi={}}
 ```
