@@ -716,8 +716,8 @@ private:
   bool imu_debug_out;
   Eigen::Matrix3d global_orient_matrix;  // The rotation matrix with initial IMU roll & pitch measurement (yaw = 0)
     double timeLaserOdometry = 0;
-    int imuPointerFront;
-    int imuPointerLast;
+    int imuPointerFront = 0;
+    int imuPointerLast = -1;
     double imuTime[imuQueLength];
     float imuRoll[imuQueLength];
     float imuPitch[imuQueLength];
